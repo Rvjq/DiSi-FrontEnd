@@ -1,3 +1,9 @@
+.icon {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
 .container-login {
     height: 100vh;
     width: 100%;

@@ -19,21 +19,21 @@ const Register = () => {
 
                 <form>
                     <div className="content-input">
-                        <input type="text" placeholder="Usuário" id="user-text" required />
                         <FaUser className='icon' />
+                        <input type="text" placeholder="Usuário" id="user-text" required />
                     </div>
                     <div className="content-input">
-                        <input type="email" placeholder="Email" id="user-text" required />
                         <MdEmail className='icon' />
+                        <input type="email" placeholder="Email" id="user-text" required />
                     </div>
 
                     <div className="content-input">
-                        <input type="password" placeholder="Senha" id="password-text" required />
                         <MdLock className='icon' />
+                        <input type="password" placeholder="Senha" id="password-text" required />
                     </div>
                     <div className="content-input">
-                        <input type="password" placeholder="Confirmar Senha" id="password-text" required />
                         <MdLock className='icon' />
+                        <input type="password" placeholder="Confirmar Senha" id="password-text" required />
                     </div>
                     <div className="container-nav">
                         <p> Ao prosseguir com o cadastro, voce está sujeito aos <a className='termos a-termos' href="#">termos de condição</a></p>

@@ -18,8 +18,8 @@ const ForgotPassaword = () => {
                 <form>
                     
                     <div className="content-input">
-                        <input type="email" placeholder="Email" id="user-text" required />
                         <MdEmail className='icon' />
+                        <input type="email" placeholder="Email" id="user-text" required />
                     </div>
 
                     <button className='button' type="submit">Enviar</button>

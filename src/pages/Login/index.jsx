@@ -21,13 +21,13 @@ const Login = () => {
 
                 <form>
                     <div className="content-input">
-                        <input type="text" placeholder="Usuário" id="user-text" required />
                         <FaUser className='icon' />
+                        <input type="text" placeholder="Usuário" id="user-text" required />
                     </div>
 
                     <div className="content-input">
-                        <input type="password" placeholder="Senha" id="password-text" required />
                         <MdLock className='icon' />
+                        <input type="password" placeholder="Senha" id="password-text" required />
                         
                     </div>
                     <div className="container-nav">

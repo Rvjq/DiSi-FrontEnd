@@ -9,4 +9,9 @@ export default defineConfig({
       '@components': '/src/components',
     },
   },
+  server: {
+    proxy: {
+      "/api": "http://localhost:3000",
+    },
+  },
 })

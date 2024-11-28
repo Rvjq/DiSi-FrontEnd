@@ -32,7 +32,8 @@ const Home = () => {
             <h1 className='text-item'style={{width: "65%"}}>Planejado<br/>20:00</h1>
             <div className='line-break'/>
 
-            <button className='enter-btn'>Entrar</button>
+            <button className='btn'>Entrar</button>
+            <button className='btn exit-btn'>Saída</button>
         </BodyFrame>
     )
 }

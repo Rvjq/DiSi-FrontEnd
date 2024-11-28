@@ -1,0 +1,40 @@
+.menu-icon {
+  margin: 0px;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding: 0px;
+  height: auto;
+  max-height: 50px;
+  width: auto;
+  max-width: 25px;
+  border-radius: 0px;
+}
+
+.content-icon {
+  position: absolute;
+  margin-left: 370px;
+  margin-top: 5px;
+  height: 30px;
+  width: 30px;
+  color: white;
+  text-decoration: none;
+}
+
+.center-text {
+  display:block;
+  position: static;
+  width: 100%;
+  text-align: center;
+  margin-top: 8px;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.divider {
+  display: block;
+  align-self: top;
+  display: block;
+  width: 100%;
+  height: 40px;
+  background-color: #50d691;
+}

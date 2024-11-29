@@ -13,9 +13,9 @@
 .text-higlight {
   text-align: center;
   color: black;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
-  padding-top: 7px;
+  padding-top: 9px;
   margin-top: 5px;
 }
 
@@ -94,5 +94,6 @@
 .home-icon {
   position: absolute;
   margin-left: 18px;
-  margin-top: 18px;
+  margin-top: 13px;
+  margin-bottom: 5px;
 }

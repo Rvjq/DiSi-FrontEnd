@@ -9,7 +9,8 @@ const Justificar = () => {
             <Head title="Justificar"/>
             <a href="/home"><FaRegCircleXmark className='content-icon'/></a>
             <h1 className='center-text'>Justificar Faltas</h1>
-            <div className='divider' />
+            <div className='divider flex'>
+            </div>
         </BodyFrame>
     );
 }

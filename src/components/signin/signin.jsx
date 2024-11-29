@@ -1,6 +1,6 @@
 import "./signin.css";
 import { useState } from "react";
-import axios from "axios";
+import { API_ENDPOINTS, API } from "@api";
 import { FaUser} from "react-icons/fa";
 import { MdLock } from "react-icons/md";
 
@@ -14,15 +14,19 @@ const Signin = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:3000/login/", {
+            const response = await API.post(API_ENDPOINTS.LOGIN, {
                 email,
                 password,
             });
             console.log('Login successful:', response);
             const token = response.data.token; // Assuming the token is in the response
+            const name = response.data.username; // Assuming the name is in the response
+            const id = response.data.id; // Assuming the id is in the response
 
             // Save the token in localStorage
             localStorage.setItem('authToken', token);
+            localStorage.setItem('name', name);
+            localStorage.setItem('id', id);
     
             // Redirect to /home
             window.location.href = '/home'; 

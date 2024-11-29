@@ -4,7 +4,6 @@ import Head from '@components/Head';
 import { FaRegCircleXmark } from "react-icons/fa6";
 
 const Justificar = () => {
-    
     return (
         <BodyFrame >
             <Head title="Justificar"/>

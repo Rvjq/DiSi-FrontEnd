@@ -1,6 +1,6 @@
 import "./signup.css";
 import { useState } from "react";
-import axios from "axios";
+import { API, API_ENDPOINTS} from "@api";
 import { FaUser} from "react-icons/fa";
 import { MdLock, MdEmail } from "react-icons/md";
 
@@ -16,7 +16,7 @@ const Signup = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:3000/user/create/", {
+            const response = await API.post(API_ENDPOINTS.CREATE_USER, {
                 email,
                 name,
                 password,

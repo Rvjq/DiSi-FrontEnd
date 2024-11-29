@@ -5,7 +5,7 @@ import SideMenu from "@components/side-menu"
 const BodyFrame = ({children}) => {
     return (
         <div>
-            <Navbar name="Tales Tompson"/>
+            <Navbar />
             <div className='container-body'>
                 <div className='half'>
                     <div className='purple-filter'/>

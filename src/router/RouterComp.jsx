@@ -5,22 +5,25 @@ import Register from "../pages/Register"
 import ForgotPassaword from '../pages/Esqueceu'
 import Pontos from '../pages/Pontos'
 import Pagamento from '../pages/Pagamento'
-import Localicazao from '../pages/Localizacao'
+import Localizacao from '../pages/Localizacao'
 import Justificar from '../pages/Justificar'
+import ProtectedRoute from '@components/ProtectedRoute'; // Import the ProtectedRoute component
 
 export default function RouterComp() {
     return (
         <BrowserRouter>
             <Routes>
                 <Route index element={<Login />} />
-                <Route path="/home" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/esqueceu" element={<ForgotPassaword />} />
-                <Route path="/home/pontos" element={<Pontos />} />
-                <Route path="/home/pagamento" element={<Pagamento />} />
-                <Route path="/home/localizacao" element={<Localicazao />} />
-                <Route path="/home/justificar" element={<Justificar />} />
+                <Route element={<ProtectedRoute />}>
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/home/pontos" element={<Pontos />} />
+                    <Route path="/home/pagamento" element={<Pagamento />} />
+                    <Route path="/home/localizacao" element={<Localizacao />} />
+                    <Route path="/home/justificar" element={<Justificar />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );

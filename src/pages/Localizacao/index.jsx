@@ -1,75 +1,60 @@
-import React, { useState } from "react";
 import './styles.css';
+import BodyFrame from '@components/body-frame';
+import Head from '@components/Head';
+import { FaRegCircleXmark } from "react-icons/fa6";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const BodyFrame = () => {
-  const [location, setLocation] = useState({ latitude: null, longitude: null });
-  const [loading, setLoading] = useState(false);
-
-  const getLocation = () => {
-    setLoading(true);
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-          setLoading(false);
-        },
-        (error) => {
-          console.error("Erro ao obter localização:", error.message);
-          setLoading(false);
-        }
-      );
-    } else {
-      console.error("Geolocalização não é suportada pelo navegador.");
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="body-frame">
-      {/* Cabeçalho */}
-      <header className="header">
-        <h1>SiDi</h1>
-        <p>Bom dia, Tales Tompson!</p>
-      </header>
-
-      {/* Conteúdo */}
-      <div className="content1">
-        {/* Menu lateral */}
-        <nav className="sidebar">
-          <button>Meus Pontos</button>
-          <button>Pagamento</button>
-          <button className="active">Minha Localização</button>
-          <button>Justificar Faltas</button>
-        </nav>
-
-        {/* Área do mapa */}
-        <div className="map-container">
-          <div className="map-header">
-            <h2>Minha Localização</h2>
-            <button onClick={getLocation} disabled={loading}>
-              {loading ? "Carregando..." : "🔄"}
-            </button>
-          </div>
-          {location.latitude && location.longitude ? (
-            <iframe
-              src={`https://www.google.com/maps?q=${location.latitude},${location.longitude}&z=15&output=embed`}
-              title="Mapa"
-              className="map"
-            ></iframe>
-          ) : (
-            <p className="map-placeholder">
-              {loading
-                ? "Obtendo localização..."
-                : "Clique no botão acima para buscar sua localização."}
-            </p>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+// Custom component to update map center dynamically
+const UpdateMapCenter = ({ center }) => {
+    const map = useMap();
+    map.setView(center, map.getZoom());
+    return null;
 };
 
-export default BodyFrame;
+const Localizacao = () => {
+    const [location, setLocation] = useState({
+        latitude: -8.05255,  // Default latitude (Recife)
+        longitude: -34.88518, // Default longitude (Recife)
+    });
+
+    useEffect(() => {
+        const fetchLocation = async () => {
+            try {
+                const response = await axios.get('https://ipapi.co/json/');
+                console.log('Location:', response.data);
+                const { latitude, longitude } = response.data;
+                setLocation({ latitude, longitude });
+            } catch (error) {
+                console.error('Error fetching location:', error);
+            }
+        };
+
+        fetchLocation();
+    }, []);
+
+    return (
+        <BodyFrame>
+            <Head title="Localização" />
+            <a href="/home"><FaRegCircleXmark className='content-icon' /></a>
+            <h1 className='center-text'>Minha Localização</h1>
+            <div id="map"></div>
+
+            <MapContainer 
+                center={[location.latitude, location.longitude]} 
+                zoom={13} 
+                style={{ borderRadius: "10px", marginTop: "10px", marginLeft: "2%", height: "430px", width: "96%" }}
+            >
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                <UpdateMapCenter center={[location.latitude, location.longitude]} />
+                <Marker position={[location.latitude, location.longitude]}>
+                    <Popup>Você está aqui! {[location.latitude, location.longitude]}</Popup>
+                </Marker>
+            </MapContainer>
+        </BodyFrame>
+    );
+};
+
+export default Localizacao;

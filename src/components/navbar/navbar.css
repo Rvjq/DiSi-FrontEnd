@@ -22,6 +22,13 @@
     font-weight: 500;
     font-size: 20px;
     margin-right: 35px;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
 }
 
 .navbar-icon {

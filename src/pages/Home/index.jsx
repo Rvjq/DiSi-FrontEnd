@@ -1,8 +1,58 @@
 import './styles.css'
+import { useState } from 'react';
+import { API_ENDPOINTS, API } from "@api";
 import BodyFrame from '@components/body-frame';
 import Head from '@components/Head';
 
 const Home = () => {
+
+    const [checkInID, setCheckInID] = useState('');
+    const [checkInTime, setCheckInTime] = useState('');
+    const [checkOutTime, setCheckOutTime] = useState('');
+    const [breakStartTime, setBreakStartTime] = useState('');
+    const [breakEndTime, setBreakEndTime] = useState('');
+
+    const checkIn = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await API.post(API_ENDPOINTS.CHECKIN, {userId: localStorage.getItem('id')});
+            console.log('Check-in realizado!', response);
+            setCheckInID(response.data.id);
+        } catch (error) {
+            console.error('Erro ao realizar Check-in:', error);
+        }
+    }
+
+    const checkOut = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await API.post(API_ENDPOINTS.CHECKOUT+checkInID);
+            console.log('Check-out realizado!', response);
+        } catch (error) {
+            console.error('Erro ao realizar Check-out:', error);
+        }
+    }
+
+    const breakStart = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await API.post(API_ENDPOINTS.CHECKOUT+checkInID);
+            console.log('Início do intervalo realizado!', response);
+        } catch (error) {
+            console.error('Erro ao realizar Início do intervalo:', error);
+        }
+    }
+
+    const breakEnd = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await API.post(API_ENDPOINTS.CHECKOUT+checkInID);
+            console.log('Fim do intervalo realizado!', response);
+        } catch (error) {
+            console.error('Erro ao realizar Fim do intervalo:', error);
+        }
+    }
+
     return (
         <BodyFrame>
             <Head title="Home"/>
@@ -32,8 +82,10 @@ const Home = () => {
             <h1 className='text-item'style={{width: "65%"}}>Planejado<br/>20:00</h1>
             <div className='line-break'/>
 
-            <button className='btn'>Entrar</button>
-            <button className='btn exit-btn'>Saída</button>
+            <button onClick={checkIn} className='btn'>Entrar</button>
+            <button onClick={checkOut} className='btn exit-btn'>Saída</button>
+            <button onClick={breakStart} className='btn'>Início Intervalo</button>
+            <button onClick={breakEnd} className='btn exit-btn'>Fim Intervalo</button>
         </BodyFrame>
     )
 }

@@ -11,9 +11,9 @@ const Pontos = () => {
     // Função para buscar os pontos
     const fetchPontos = async () => {
         try {
-            const response = await API.get(API_ENDPOINTS.GET_CHECKINS+localStorage.getItem('id')); // Substitua pelo endpoint real
-            setPontos(response.data); // Atualiza o estado com os dados da API
-            console.log(pontos);
+            const response = await API.get(API_ENDPOINTS.GET_CHECKINS+localStorage.getItem('id'));
+            const pontosFiltrados = response.data.filter((ponto) => ponto.userId === localStorage.getItem("id"));
+            setPontos(pontosFiltrados); // Atualiza o estado com os dados da API
         } catch (err) {
             console.log(err);
         }
@@ -40,7 +40,7 @@ const Pontos = () => {
                             </div>
                             <div className='ponto-text-flex'>
                                 <p className='ponto-text-left'>Entrada:<br/>{ponto.checkInHorario}</p>
-                                <p className='ponto-text-center'>Intervalo Fim:<br/>{ponto.intervalSaidaData}</p>
+                                <p className='ponto-text-center'>Intervalo Fim:<br/>{ponto.intervalSaidaHorario}</p>
                                 <p className='ponto-text-right'>Saida:<br/>{ponto.checkOutHorario}</p>
                             </div>
                         </div>

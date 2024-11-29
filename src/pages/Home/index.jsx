@@ -26,6 +26,49 @@ const Home = () => {
             setCurrentDate(formattedDate);
         }, 1000);
 
+        const fetchPontos = async () => {
+            try {
+                const response = await API.get(API_ENDPOINTS.GET_CHECKINS + localStorage.getItem('id'));
+                const pontos = response.data; // Lista de pontos recebida da API
+    
+                // Obtém a data atual no formato dd/mm/yyyy
+                const today = new Date().toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                });
+    
+                // Procura por um ponto correspondente à data atual
+                const pontoHoje = pontos.find((ponto) => ponto.checkInData === today && ponto.userId === localStorage.getItem('id'));
+    
+                if (pontoHoje) {
+                    // Atualiza os estados com os dados do ponto de hoje
+                    setCheckInID(pontoHoje.id);
+                    setCheckInTime(pontoHoje.checkInHorario);
+                    setCheckOutTime(pontoHoje.checkOutHorario);
+                    setBreakStartTime(pontoHoje.intervalEntradaHorario);
+                    setBreakEndTime(pontoHoje.intervalSaidaHorario);
+    
+                    // Define o estado dos botões com base nos dados carregados
+                    if (pontoHoje.checkOutHorario != "") {
+                        setButtonState('hidden'); // Ponto completo
+                    } else if (pontoHoje.intervalEntradaHorario != "") {
+                        setButtonState('breakStart'); // Durante o intervalo
+                    } else if (pontoHoje.intervalSaidaHorario != "") {
+                        setButtonState('breakEnd' != ""); // Após o fim do intervalo
+                    } else {
+                        setButtonState('main'); // Após o check-in
+                    }
+                } else {
+                    // Não há ponto hoje; botão de check-in será exibido
+                    setButtonState('checkIn');
+                }
+            } catch (err) {
+                console.error('Erro ao buscar pontos:', err);
+            }
+        };
+    
+        fetchPontos();
         return () => clearInterval(intervalId);
     }, []);
 
